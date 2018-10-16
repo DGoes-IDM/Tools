@@ -36,7 +36,7 @@ def replace_chunk_in_file(file_path):
 
     # Write data back to json file
     with open(file_path, 'w') as f:
-        json.dump(file_data, f, sort_keys=True, indent=4, separators=(', ', ': '))
+        json.dump(file_data, f, sort_keys=True, indent=4, separators=(',', ': '))
 
 
 def replace_chunks_in_collection(file_path):
