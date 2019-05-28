@@ -44,22 +44,25 @@ def find_key(needles, haystack):
     return found
 
 
-def find_key_context(needle, haystack):
+def find_key_context(needle, haystack, ignore_first=0):
     found = {}
     if isinstance(haystack, type(dict())):
         if needle in haystack.keys():
-            return haystack
+            if ignore_first == 0:
+                return haystack, ignore_first
+            else:
+                ignore_first -= 1
         elif len(haystack.keys()) > 0:
             for key in haystack.keys():
-                result = find_key_context(needle, haystack[key])
+                result, ignore_first = find_key_context(needle, haystack[key], ignore_first)
                 if result:
-                    return result
+                    return result, ignore_first
     elif isinstance(haystack, type([])):
         for node in haystack:
-            result = find_key_context(needle, node)
+            result, ignore_first = find_key_context(needle, node, ignore_first)
             if result:
-                return result
-    return found
+                return result, ignore_first
+    return found, ignore_first
 
 
 def find_value_context(needles, haystack):
