@@ -52,7 +52,7 @@ def find_key_context(needle, haystack, ignore_first=0):
                 return haystack, ignore_first
             else:
                 ignore_first -= 1
-        elif len(haystack.keys()) > 0:
+        if len(haystack.keys()) > 0:
             for key in haystack.keys():
                 result, ignore_first = find_key_context(needle, haystack[key], ignore_first)
                 if result:

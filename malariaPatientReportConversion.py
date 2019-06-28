@@ -1,6 +1,7 @@
 import argparse
 import json
 import csv
+import os
 
 
 def create_patient_output(data, output_directory):
@@ -19,6 +20,10 @@ def process_patient_report(file_path, output_directory):
     with open(file_path) as file:
         file_data = json.load(file)
 
+    # Correct output directory if none was provided
+    if output_directory == "":
+        output_directory = os.path.dirname(file_path)
+
     # For each patient...
     for patient in file_data["patient_array"]:
         # Create a patient data file
@@ -28,7 +33,7 @@ def process_patient_report(file_path, output_directory):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("file_path", help="Path to the malaria patient report JSON file")
-    parser.add_argument("--output-directory", default=".", help="Optional path to the output directory to emit "
+    parser.add_argument("--output-directory", default="", help="Optional path to the output directory to emit "
                                                                    "CSV files")
     args = parser.parse_args()
 
