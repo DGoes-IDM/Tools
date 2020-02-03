@@ -1,7 +1,3 @@
-import sys
-import argparse
-import json
-
 
 def add_param(file_data, key, value):
     file_data["parameters"][key] = value
